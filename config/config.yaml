@@ -1,0 +1,152 @@
+# Intraday Trading System Configuration
+
+# Market Segments and Stock Selection
+market_segments:
+  technology:
+    stocks: ["AAPL", "MSFT", "GOOGL", "META", "NVDA"]
+  finance:
+    stocks: ["JPM", "BAC", "WFC", "GS", "MS"]
+  healthcare:
+    stocks: ["JNJ", "PFE", "UNH", "ABBV", "MRK"]
+  energy:
+    stocks: ["XOM", "CVX", "COP", "SLB", "EOG"]
+  consumer_goods:
+    stocks: ["PG", "KO", "PEP", "WMT", "COST"]
+  retail:
+    stocks: ["AMZN", "TGT", "HD", "LOW", "SBUX"]
+  telecommunications:
+    stocks: ["VZ", "T", "TMUS", "CMCSA", "CHTR"]
+  industrials:
+    stocks: ["BA", "CAT", "GE", "MMM", "HON"]
+  utilities:
+    stocks: ["NEE", "SO", "DUK", "AEP", "EXC"]
+  real_estate:
+    stocks: ["AMT", "PLD", "CCI", "EQIX", "PSA"]
+
+# Trading Parameters
+trading:
+  max_positions: 10
+  position_size_percent: 10.0  # % of portfolio per position
+  stop_loss_percent: 2.0
+  take_profit_percent: 4.0
+  risk_per_trade_percent: 1.0
+  
+# Data Sources
+data_sources:
+  yahoo_finance:
+    enabled: true
+    interval: "1m"  # 1 minute data for intraday
+  
+  twitter:
+    enabled: true
+    api_version: "2.0"
+    
+  alpha_vantage:
+    enabled: true
+    
+  quandl:
+    enabled: false
+
+# Analysis Weights
+analysis_weights:
+  fundamental: 0.30
+  technical: 0.40
+  sentiment: 0.30
+
+# Technical Indicators
+technical_indicators:
+  trend:
+    - "SMA_20"
+    - "SMA_50"
+    - "EMA_12"
+    - "EMA_26"
+    - "MACD"
+    - "ADX"
+  
+  momentum:
+    - "RSI"
+    - "STOCH"
+    - "CCI"
+    - "Williams_R"
+  
+  volatility:
+    - "BB_upper"
+    - "BB_lower"
+    - "ATR"
+  
+  volume:
+    - "OBV"
+    - "Volume_SMA"
+    - "VWAP"
+
+# Fundamental Metrics
+fundamental_metrics:
+  profitability:
+    - "ROE"
+    - "ROA"
+    - "Profit_Margin"
+    - "Operating_Margin"
+  
+  valuation:
+    - "PE_Ratio"
+    - "PB_Ratio"
+    - "EV_EBITDA"
+  
+  growth:
+    - "Revenue_Growth"
+    - "Earnings_Growth"
+  
+  financial_health:
+    - "Debt_to_Equity"
+    - "Current_Ratio"
+    - "Quick_Ratio"
+
+# Sentiment Analysis
+sentiment_analysis:
+  sources:
+    - "twitter"
+    - "news_headlines"
+    - "reddit"
+  
+  keywords_per_stock: 50
+  sentiment_timeframe: "24h"  # hours
+  
+  models:
+    - "VADER"
+    - "TextBlob"
+    - "FinBERT"
+
+# Database Configuration
+database:
+  type: "sqlite"
+  path: "data/trading_system.db"
+  
+# Logging
+logging:
+  level: "INFO"
+  file: "logs/trading_system.log"
+  max_size: "100MB"
+  backup_count: 5
+
+# API Configuration
+api:
+  host: "0.0.0.0"
+  port: 8000
+  debug: false
+
+# Scheduling
+scheduler:
+  market_hours:
+    start: "09:30"
+    end: "16:00"
+    timezone: "US/Eastern"
+  
+  data_refresh_interval: 60  # seconds
+  analysis_interval: 300     # seconds (5 minutes)
+  
+# Risk Management
+risk_management:
+  max_daily_loss_percent: 5.0
+  max_position_correlation: 0.7
+  volatility_threshold: 0.3
+  liquidity_min_volume: 1000000  # minimum daily volume
